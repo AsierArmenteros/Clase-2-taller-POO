@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-barcodes-7.0.5.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-forms-7.0.5.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-io-7.0.5.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-kernel-7.0.5.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-layout-7.0.5.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-pdfa-7.0.5.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-pdftest-7.0.5.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-sign-7.0.5.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-barcodes-7.0.5-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-forms-7.0.5-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-io-7.0.5-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-kernel-7.0.5-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-layout-7.0.5-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-pdfa-7.0.5-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-pdftest-7.0.5-javadoc.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-sign-7.0.5-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-barcodes-7.0.5-sources.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-forms-7.0.5-sources.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-io-7.0.5-sources.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-kernel-7.0.5-sources.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-layout-7.0.5-sources.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-pdfa-7.0.5-sources.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-pdftest-7.0.5-sources.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/itext7-7/itext7-sign-7.0.5-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="com.itextpdf:itextpdf:5.5.12" level="project" />
+  </component>
+</module>
