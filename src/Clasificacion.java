@@ -87,14 +87,21 @@ public class Clasificacion {
 
 
 
-    public void pdf() throws IOException, DocumentException {
+    public void pdf() {
         Pdf archivo = new Pdf();
-        archivo.createPdf("Prueba.pdf", posiciones);
+        try {
 
+
+            archivo.createPdf("Prueba.pdf", posiciones);
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (DocumentException e){
+            e.printStackTrace();
+        }
 
 
     }
-    public void html() throws IOException {
+    public void html() {
         Html html=new Html();
         html.makehtml(posiciones);
     }

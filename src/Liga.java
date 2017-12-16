@@ -1,7 +1,5 @@
 import com.itextpdf.text.DocumentException;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class Liga {
 
     }
 
-    public void start() throws IOException, DocumentException {
+    public void start() throws DocumentException {
 
 
         this.generarPartidos();     //Por cada equipo en la lista genera los partidos de ida y de vuelta con cada uno de los otros equipos.
@@ -67,8 +65,10 @@ public class Liga {
 
     private void crearEquipos() {
 
+        int i=0;
         for(String nombre : Utils.nombres){
-            this.equipos.add(new Equipo(nombre));
+            this.equipos.add(new Equipo(nombre, new Plantilla(i)));
+            i++;
         }
 
 
@@ -82,7 +82,7 @@ public class Liga {
     }
 
 
-    public void visualizar() throws IOException, DocumentException {
+    public void visualizar() {
 
         for (Equipo equipo : equipos) {
             this.visualizarNombre(equipo);// visualizar nombre el equipo

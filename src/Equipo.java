@@ -7,6 +7,8 @@ public class Equipo {
 
     private String nombre;
 
+    private Plantilla plantilla;
+
 
     private int puntosTotales=0;
     private int golesAFavor=0;
@@ -22,8 +24,9 @@ public class Equipo {
     }
 
 
-    public Equipo(String nombre) {
+    public Equipo(String nombre, Plantilla plantilla) {
         this.nombre=nombre;
+        this.plantilla=plantilla;
     }
 
     public String getNombre(){
@@ -130,6 +133,10 @@ public class Equipo {
             }
 
         }
+
+    }
+    public void actualizaJugadores(){
+        this.plantilla.actualizaJugadores(this.golesEnContra, this.golesAFavor);
 
     }
 }
