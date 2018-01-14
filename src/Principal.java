@@ -1,6 +1,5 @@
 import com.itextpdf.text.DocumentException;
 
-
 import java.io.IOException;
 /*
             Integrantes del Grupo:
@@ -8,7 +7,7 @@ import java.io.IOException;
             * Asier Armenteros Cañibano bn0207
             * Isaac Martinez Garrido    bn0307
             * Mario Jurado Soba         bn0176
-            * Ruben Muro Gómez          bn0203
+            * Ruben Muro Gómez          bn0302
  */
 
 public class Principal {

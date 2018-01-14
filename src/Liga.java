@@ -1,7 +1,5 @@
 import com.itextpdf.text.DocumentException;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,20 +11,19 @@ public class Liga {
     private Clasificacion clasificacion;
 
 
-
     public Liga() {
         this.crearEquipos();    //Crea y añade a la lista de los equipos cada equipo con los nombre que pertenecen a la clase Utils.
 
     }
 
-    public void start() throws IOException, DocumentException {
+    public void start() throws DocumentException {
 
 
         this.generarPartidos();     //Por cada equipo en la lista genera los partidos de ida y de vuelta con cada uno de los otros equipos.
 
         this.actualizarEquipos();   //Por cada equipo actualiza sus puntos y sus goles.
 
-        this.clasificacion=new Clasificacion(equipos);   //Crea la clasificacion con todos los equipos.
+        this.clasificacion = new Clasificacion(equipos);   //Crea la clasificacion con todos los equipos.
 
         this.visualizar();      //Por cada equipo en la lista muestra por pantalla su nombre, los partidos totales, los ganados, los perdidos y los empatados.
 
@@ -34,8 +31,17 @@ public class Liga {
     }
 
     private void actualizarEquipos() {
-        for (Equipo equipo: this.equipos) {
-            equipo.sumaPuntos();
+        for (Equipo equipo : this.equipos) {
+            try {
+                equipo.sumaPuntos();
+                if (equipo.getPuntosTotales() > 6 * (equipos.size() - 1)) {
+                    throw new MaxPuntosException("Se ha excedido el número maximo de puntos que un equipo puede consegir.");
+                }
+            } catch (MaxPuntosException e) {
+                equipo.setPuntosTotales(0);
+                equipo.sumaPuntos();
+                e.printStackTrace();
+            }
             equipo.sumaGoles();
 
         }
@@ -50,10 +56,10 @@ public class Liga {
     private void generarPartidos() {
 
 
-        for(Equipo equipoLocal : equipos ){
-            for(Equipo equipoVisitante : equipos){
-                if(!equipoLocal.getNombre().equalsIgnoreCase(equipoVisitante.getNombre())){
-                   new Partido(equipoLocal, equipoVisitante);
+        for (Equipo equipoLocal : equipos) {
+            for (Equipo equipoVisitante : equipos) {
+                if (!equipoLocal.getNombre().equalsIgnoreCase(equipoVisitante.getNombre())) {
+                    new Partido(equipoLocal, equipoVisitante);
 
 
                 }
@@ -66,23 +72,27 @@ public class Liga {
     }
 
     private void crearEquipos() {
+        try {
+            int i = 0;
+            for (String nombre : Utils.nombres) {
+                if (i > 4) {
+                    throw new MaxEquiposException("Has superado el número máximo de equipos, solo se tendrán en cuenta lo cinco primeros suministrados.");
+                }
+                this.equipos.add(new Equipo(nombre, new Plantilla(i)));
+                i++;
 
-        for(String nombre : Utils.nombres){
-            this.equipos.add(new Equipo(nombre));
+            }
+
+        } catch (MaxEquiposException e) {
+            e.printStackTrace();
+
         }
-
-
-
-
-
-
-
 
 
     }
 
 
-    public void visualizar() throws IOException, DocumentException {
+    public void visualizar() {
 
         for (Equipo equipo : equipos) {
             this.visualizarNombre(equipo);// visualizar nombre el equipo
@@ -93,38 +103,39 @@ public class Liga {
 
 
         }
+        System.out.println("==============================\n");
         this.visualizarClasificacion();
         this.clasificacion.asciende();
         this.clasificacion.desciende();
 
         this.clasificacion.pdf();
         this.clasificacion.html();
+        this.clasificacion.text();
+        this.clasificacion.posicionarPorDiferencia(equipos);
+        this.clasificacion.visualizarPorDiferencia();
     }
 
 
-
-
-
-
-
-    public  void visualizarNombre(Equipo equipo){
-        System.out.println(equipo.getNombre());
+    public void visualizarNombre(Equipo equipo) {
+        System.out.println("******************************");
+        System.out.println("\033[34m"+equipo.getNombre()+"\033[38m");
+        System.out.println("******************************\n");
 
     }
 
-    public  void visualizarTotales(Equipo equipo) {
-        System.out.println("Totales");
-        for(Partido partido : equipo.getPartidosTotales()){
+    public void visualizarTotales(Equipo equipo) {
+        System.out.println("Totales\n");
+        for (Partido partido : equipo.getPartidosTotales()) {
             System.out.println(partido.getLocal().getNombre() + " " + partido.getGolesLocal() + " - " + partido.getGolesVisitante() + " " + partido.getVisitante().getNombre());
         }
         System.out.print("\n");
     }
 
-    public  void visualizarGanados(Equipo equipo){
-        System.out.println("Ganados");
+    public void visualizarGanados(Equipo equipo) {
+        System.out.println("Ganados\n");
 
-        for  (Partido partido : equipo.partidosGanados() ) {
-            System.out.println(partido.getLocal().getNombre() + " " +  partido.getGolesLocal() + " - " + partido.getGolesVisitante() + " " + partido.getVisitante().getNombre());
+        for (Partido partido : equipo.partidosGanados()) {
+            System.out.println(partido.getLocal().getNombre() + " " + partido.getGolesLocal() + " - " + partido.getGolesVisitante() + " " + partido.getVisitante().getNombre());
 
         }
         System.out.print("\n");
@@ -132,30 +143,28 @@ public class Liga {
 
     }
 
-    public  void visualizarEmpatados(Equipo equipo) {
-        System.out.println("Empatados");
+    public void visualizarEmpatados(Equipo equipo) {
+        System.out.println("Empatados\n");
 
-        for(Partido partido : equipo.partidosEmpatados()){
+        for (Partido partido : equipo.partidosEmpatados()) {
             System.out.println(partido.getLocal().getNombre() + " " + partido.getGolesLocal() + " - " + partido.getGolesVisitante() + " " + partido.getVisitante().getNombre());
         }
         System.out.print("\n");
     }
 
-    public  void visualizarPerdidos(Equipo equipo) {
-        System.out.println("Perdidos");
-        for(Partido partido : equipo.partidosPerdidos()){
+    public void visualizarPerdidos(Equipo equipo) {
+        System.out.println("Perdidos\n");
+        for (Partido partido : equipo.partidosPerdidos()) {
             System.out.println(partido.getLocal().getNombre() + " " + partido.getGolesLocal() + " - " + partido.getGolesVisitante() + " " + partido.getVisitante().getNombre());
         }
         System.out.print("\n");
     }
 
 
-    public  void visualizarClasificacion(){
+    public void visualizarClasificacion() {
 
         clasificacion.visualizar();
     }
 
 
-
-
-    }
+}
