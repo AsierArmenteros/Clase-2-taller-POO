@@ -2,31 +2,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class Equipo {
 
     private String nombre;
 
-
-    private int puntosTotales=0;
-    private int golesAFavor=0;
-    private int golesEnContra=0;
+    private Plantilla plantilla;
 
 
+    public void setPuntosTotales(int puntosTotales) {
+        this.puntosTotales = puntosTotales;
+    }
+
+    private int puntosTotales = 0;
+    private int golesAFavor = 0;
+    private int golesEnContra = 0;
+    private int diferenciaGoles =0;
 
 
-    private List<Partido> partidosTotales= new ArrayList<>();
+    private List<Partido> partidosTotales = new ArrayList<>();
 
     public List<Partido> getPartidosTotales() {
         return partidosTotales;
     }
 
 
-    public Equipo(String nombre) {
-        this.nombre=nombre;
+    public Equipo(String nombre, Plantilla plantilla) {
+        this.nombre = nombre;
+        this.plantilla = plantilla;
     }
 
-    public String getNombre(){
+    public String getNombre() {
         return nombre;
     }
 
@@ -43,14 +48,13 @@ public class Equipo {
     }
 
 
+    public int getDiferenciaGoles() {
+        return diferenciaGoles;
+    }
 
+    public void sumaGoles() {
 
-
-
-
-    public void sumaGoles(){
-
-        for (Partido partido: this.partidosTotales) {
+        for (Partido partido : this.partidosTotales) {
 
 
             if (partido.getLocal() == this) {
@@ -61,13 +65,15 @@ public class Equipo {
                 this.golesEnContra += partido.getGolesLocal();
             }
         }
+        this.diferenciaGoles=this.golesAFavor-this.golesEnContra;
+
     }
 
-    public ArrayList<Partido> partidosGanados(){
+    public ArrayList<Partido> partidosGanados() {
 
-        ArrayList <Partido> ganados = new ArrayList<>();
+        ArrayList<Partido> ganados = new ArrayList<>();
 
-        for(Partido partido : this.partidosTotales) {
+        for (Partido partido : this.partidosTotales) {
             if (partido.ganador() == this) {
                 ganados.add(partido);
 
@@ -78,12 +84,11 @@ public class Equipo {
     }
 
 
+    public ArrayList<Partido> partidosPerdidos() {
+        ArrayList<Partido> perdidos = new ArrayList<>();
 
-    public ArrayList<Partido> partidosPerdidos(){
-        ArrayList <Partido> perdidos = new ArrayList<>();
-
-        for(Partido partido : this.partidosTotales) {
-            if (partido.ganador() != this && partido.ganador()!=null) {
+        for (Partido partido : this.partidosTotales) {
+            if (partido.ganador() != this && partido.ganador() != null) {
                 perdidos.add(partido);
 
             }
@@ -93,8 +98,6 @@ public class Equipo {
 
 
     }
-
-
 
 
     public ArrayList<Partido> partidosEmpatados() {
@@ -117,19 +120,22 @@ public class Equipo {
     }
 
 
+    public void sumaPuntos() {
 
-    public void sumaPuntos(){
-
-        for (Partido partido: this.partidosTotales) {
-            if (partido.ganador()==this){
-                this.puntosTotales+=3;
-            }
-            else if(partido.ganador()==null){
-                this.puntosTotales+=1;
+        for (Partido partido : this.partidosTotales) {
+            if (partido.ganador() == this) {
+                this.puntosTotales += 3;
+            } else if (partido.ganador() == null) {
+                this.puntosTotales += 1;
 
             }
 
         }
+
+    }
+
+    public void actualizaJugadores() {
+        this.plantilla.actualizaJugadores(this.golesEnContra, this.golesAFavor);
 
     }
 }
